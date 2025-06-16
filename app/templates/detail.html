@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block content %}
+<h2>📘 도서 상세</h2>
+<ul class="book-detail">
+  <li><strong>제목:</strong> {{ book.title }}</li>
+  <li><strong>저자:</strong> {{ book.author }}</li>
+  <li><strong>출판년도:</strong> {{ book.year }}</li>
+  <li>
+    <strong>읽음 여부:</strong> {{ '읽음' if book.is_read else '안 읽음' }}
+  </li>
+</ul>
+
+<form
+  action="/books/{{ book.id }}/delete"
+  method="post"
+  onsubmit="return confirm('삭제하시겠습니까?')"
+>
+  <button type="submit" class="btn danger">삭제</button>
+</form>
+<a href="/" class="btn">뒤로 가기</a>
+{% endblock %}

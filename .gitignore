@@ -1,0 +1,44 @@
+# 환경 변수 파일
+.env
+.env.*
+!.env.example
+
+# 가상 환경
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# Python 캐시 파일
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 로그 파일
+*.log
+logs/
+
+# 데이터베이스 파일
+*.sqlite3
+*.db
+
+# IDE 설정
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 빌드 결과물
+build/
+dist/
+*.egg-info/
+
+# Docker
+.dockerignore

@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %}
+<div class="top-bar">
+  <a href="/books/new" class="btn">+ 새 도서 추가</a>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>제목</th>
+      <th>저자</th>
+      <th>출판년도</th>
+      <th>읽음</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr onclick="location.href='/books/{{ book.id }}'">
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.year }}</td>
+      <td>{{ '✅' if book.is_read else '❌' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

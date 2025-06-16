@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<h2>📖 새 도서 등록</h2>
+<form action="/books/create" method="post">
+  <label>제목</label>
+  <input type="text" name="title" required />
+
+  <label>저자</label>
+  <input type="text" name="author" required />
+
+  <label>출판년도</label>
+  <input type="number" name="year" required />
+
+  <label> <input type="checkbox" name="is_read" /> 읽음 </label>
+
+  <button type="submit" class="btn">등록</button>
+</form>
+{% endblock %}
