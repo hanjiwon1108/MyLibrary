@@ -9,12 +9,18 @@
   </li>
 </ul>
 
-<form
-  action="/books/{{ book.id }}/delete"
-  method="post"
-  onsubmit="return confirm('삭제하시겠습니까?')"
->
-  <button type="submit" class="btn danger">삭제</button>
-</form>
-<a href="/" class="btn">뒤로 가기</a>
+<div class="button-group">
+  <a href="/books/{{ book.id }}/edit" class="btn primary">수정</a>
+
+  <form
+    action="/books/{{ book.id }}/delete"
+    method="post"
+    onsubmit="return confirm('삭제하시겠습니까?')"
+    style="display: inline-block"
+  >
+    <button type="submit" class="btn danger">삭제</button>
+  </form>
+
+  <a href="/" class="btn">뒤로 가기</a>
+</div>
 {% endblock %}

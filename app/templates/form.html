@@ -1,17 +1,53 @@
 {% extends "base.html" %} {% block content %}
-<h2>📖 새 도서 등록</h2>
-<form action="/books/create" method="post">
+<h2>
+  📖 {% if action == "update" %}도서 수정{% else %}새 도서 등록{% endif %}
+</h2>
+<form
+  action="{% if action == 'update' %}/books/{{ book.id }}/update{% else %}/books/create{% endif %}"
+  method="post"
+>
   <label>제목</label>
-  <input type="text" name="title" required />
+  <input
+    type="text"
+    name="title"
+    required
+    value="{% if book %}{{ book.title }}{% endif %}"
+  />
 
   <label>저자</label>
-  <input type="text" name="author" required />
+  <input
+    type="text"
+    name="author"
+    required
+    value="{% if book %}{{ book.author }}{% endif %}"
+  />
 
   <label>출판년도</label>
-  <input type="number" name="year" required />
+  <input
+    type="number"
+    name="year"
+    required
+    value="{% if book %}{{ book.year }}{% endif %}"
+  />
 
-  <label> <input type="checkbox" name="is_read" /> 읽음 </label>
+  <label>
+    <input
+      type="checkbox"
+      name="is_read"
+      {%
+      if
+      book
+      and
+      book.is_read
+      %}checked{%
+      endif
+      %}
+    />
+    읽음
+  </label>
 
-  <button type="submit" class="btn">등록</button>
+  <button type="submit" class="btn">
+    {% if action == "update" %}수정{% else %}등록{% endif %}
+  </button>
 </form>
 {% endblock %}
