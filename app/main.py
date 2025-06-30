@@ -3,11 +3,23 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+import time
 
 from . import models, schemas, crud
 from .database import engine, Base, SessionLocal
 
-Base.metadata.create_all(bind=engine)
+# 데이터베이스 연결 재시도 로직
+for retry in range(5):
+    try:
+        Base.metadata.create_all(bind=engine)
+        break
+    except Exception as e:
+        if retry < 4:  # 마지막 시도 전까지는 대기
+            print(f"데이터베이스 연결 시도 {retry+1}/5 실패. 5초 후 재시도...")
+            time.sleep(5)
+        else:
+            print(f"데이터베이스 연결 실패: {e}")
+            raise
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
