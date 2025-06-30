@@ -61,3 +61,21 @@ def book_detail(book_id: int, request: Request, db: Session = Depends(get_db)):
 def delete_book(book_id: int, db: Session = Depends(get_db)):
     crud.delete_book(db, book_id)
     return RedirectResponse("/", status_code=303)
+
+@app.get("/books/{book_id}/edit")
+def edit_book_form(book_id: int, request: Request, db: Session = Depends(get_db)):
+    book = crud.get_book(db, book_id)
+    return templates.TemplateResponse("form.html", {"request": request, "book": book, "action": "update"})
+
+@app.post("/books/{book_id}/update")
+def update_book(
+    book_id: int,
+    title: str = Form(...),
+    author: str = Form(...),
+    year: int = Form(...),
+    is_read: bool = Form(False),
+    db: Session = Depends(get_db),
+):
+    book_data = schemas.BookUpdate(title=title, author=author, year=year, is_read=is_read)
+    crud.update_book(db, book_id, book_data)
+    return RedirectResponse(f"/books/{book_id}", status_code=303)

@@ -9,8 +9,11 @@ class BookBase(BaseModel):
 class BookCreate(BookBase):
     pass
 
-class BookUpdate(BookBase):
-    pass
+class BookUpdate(BaseModel):
+    title: str
+    author: str
+    year: int
+    is_read: bool = False
 
 class Book(BookBase):
     id: int

@@ -14,13 +14,12 @@ def create_book(db: Session, book: schemas.BookCreate):
     db.refresh(db_book)
     return db_book
 
-def update_book(db: Session, book_id: int, book: schemas.BookUpdate):
+def update_book(db: Session, book_id: int, book_data: schemas.BookUpdate):
     db_book = get_book(db, book_id)
-    if db_book:
-        for key, value in book.dict().items():
-            setattr(db_book, key, value)
-        db.commit()
-        db.refresh(db_book)
+    for key, value in book_data.dict().items():
+        setattr(db_book, key, value)
+    db.commit()
+    db.refresh(db_book)
     return db_book
 
 def delete_book(db: Session, book_id: int):
